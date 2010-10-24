@@ -4,7 +4,13 @@
 CC=gcc
 CFLAGS=
 
-all: greedy brute_force
+all: generator read_instance greedy brute_force
+
+generator: generator.c 
+	$(CC) -o $@ $<
+
+read_instance: read_instance.c 
+	$(CC) -o $@ $< -lrt
 
 greedy: greedy.c baselib.o 
 	$(CC) $(CFLAGS) -o $@ $< baselib.o -lrt 
@@ -18,6 +24,8 @@ baselib.o: baselib.c
 clean:
 	-rm greedy 
 	-rm brute_force 
+	-rm read_instance
+	-rm generator
 	-rm baselib.o 
 
 .PHONY: clean
