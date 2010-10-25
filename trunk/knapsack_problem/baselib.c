@@ -71,12 +71,17 @@ void read_instance (
 void print_instance ( instance_t* instance ) {
 	printf ( "n=%d\tW=%d\n", instance->n, instance->W ) ;
 	unsigned int j ;
+	
+	unsigned int total_weight=0;
+	unsigned int total_price=0;
 	for ( j=0 ; j<instance->n ; ++j ){
 		//printf("valor1:%i valor2:%i == %f\n",instance->p[j],instance->w[j],(double)instance->p[j]/(double)instance->w[j]); 
 		//printf ("item %d has profit %d and weigth %d \n", j+1, instance->p[j], instance->w[j]) ;
 		printf ("item %d has profit %d and weigth %d profit/weigth %f\n", j+1, instance->p[j], instance->w[j],(float)instance->p[j]/(float)instance->w[j]) ;
-	
+		total_weight+=instance->w[j];
+		total_price+=instance->p[j];
 	}
+	printf("BAG AGGREGATE VALUE; weight:%i price:%i\n",total_weight,total_price);
 }
 
 void free_instance ( instance_t* instance ) {
