@@ -23,9 +23,9 @@ BEGIN_MAIN
 
 BEGIN_EXPERIMENT
 	unsigned int size=instance.n;
- 	int x=NULL;
+ 	int x;
 	for(x=0;x<size;x++){
- 		int y=NULL;
+ 		int y;
 			for(y=0;y<size;y++){
 				double peso_1=(double)instance.p[x]/(double)instance.w[x];
 				double peso_2=(double)instance.p[y]/(double)instance.w[y];
@@ -45,7 +45,7 @@ BEGIN_EXPERIMENT
 	result.n=0;
 	result.W=W;
 	
-	int y=NULL;
+	int y;
 	for(y=0;y<size;y++){
 		unsigned int p;
 		unsigned int w;
