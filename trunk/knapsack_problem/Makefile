@@ -1,5 +1,6 @@
 #Author: Jander Nascimento
 #License: LGPL
+#Date: 25 Oct 2010
 
 CC=gcc
 CFLAGS=
