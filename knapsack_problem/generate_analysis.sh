@@ -2,7 +2,7 @@
 #Author: Jander Nascimento
 #License: LGPL
 #Date: 25 Oct 2010
-
+#Note: make sure you runned make before run this script
 function generate_instances {
 	for i in `seq -w 1` 
 	do
@@ -13,7 +13,7 @@ function generate_instances {
 
 rm -rf analysis; mkdir analysis
 
-for num in $(echo 1 2 3 4 5 6 7 8 9 10 11 12 |cat); do
+for num in $(echo 1 2 3 4 5 6 7 |cat); do
 
 	test -d instances/$num/ || mkdir -p instances/$num/
 	
@@ -41,6 +41,8 @@ for num in $(echo 1 2 3 4 5 6 7 8 9 10 11 12 |cat); do
 	rm -rf instances/$num
 done
 
-	gnuplot -e "set term png; set output 'analysis/time_analysis.png'; set ylabel 'Time(ms)';set xlabel 'number of items';set title 'Algorithm benchmark - Time consuming'; set autoscale; plot 'analysis/time_greedy.tmp' title 'Greedy' with lines, 'analysis/time_bf.tmp' title 'Brute Force' with lines";	
-	gnuplot -e "set term png; set output 'analysis/price_analysis.png'; set ylabel 'Value of the Bag';set xlabel 'number of items';set title 'Algorithm benchmark - Value carried'; set autoscale; plot 'analysis/price_greedy.tmp' title 'Greedy' with lines, 'analysis/price_bf.tmp' title 'Brute Force' with lines";	
+	if [ -e "$(which gnuplot)" ]; then
+		gnuplot -e "set term png; set output 'analysis/time_analysis.png'; set ylabel 'Time(ms)';set xlabel 'number of items';set title 'Algorithm benchmark - Time consuming'; set autoscale; plot 'analysis/time_greedy.tmp' title 'Greedy' with lines, 'analysis/time_bf.tmp' title 'Brute Force' with lines";
+		gnuplot -e "set term png; set output 'analysis/price_analysis.png'; set ylabel 'Value of the Bag';set xlabel 'number of items';set title 'Algorithm benchmark - Value carried'; set autoscale; plot 'analysis/price_greedy.tmp' title 'Greedy' with lines, 'analysis/price_bf.tmp' title 'Brute Force' with lines";
+	fi
 	rm analysis/time_greedy.tmp ; rm analysis/time_bf.tmp;
