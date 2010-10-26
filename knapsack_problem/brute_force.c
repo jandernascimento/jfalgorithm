@@ -27,15 +27,16 @@ int factorial(int val){
 
 instance_t generate_instance(int* combination_set,instance_t instance){
 
-	int counter=0;
-	for(counter=0;counter<instance.n&&combination_set[counter]!=-1;counter++);
+	//int counter=0;
+	//for(counter=0;counter<instance.n&&combination_set[counter]!=-1;counter++);
 
 	instance_t result;
 	result.n=0;
 	result.W=instance.W;
 	
 	int j=0;
-	for(j=0;j<counter;j++){
+	for(j=0;j<instance.n;j++){
+		if(combination_set[j]==-1) continue;
 		unsigned int p;
 		unsigned int w;
 		p=instance.p[combination_set[j]];
@@ -69,9 +70,12 @@ void print_combination(int combination[],int size){
 
 void test_combination(int combination[],int size){
 
+	int tmp_combination[size];
+
 	if(!is_set){
 		best_combination_set=malloc(size*sizeof(int));
-		best_combination_price=0;		
+		best_combination_price=0;
+		best_combination_weight=0;		
 		is_set=1;
 	}
 
@@ -81,26 +85,22 @@ void test_combination(int combination[],int size){
 	unsigned int total_weight=0;
 	unsigned int total_price=0;
 
-	int stop=0;
-	int copy_counter=0;
 	for(j=0;j<size;j++){
 		
 		//printf("%i, ",combination[j]);
-			
-		if((total_weight+(instance.w[j]))>instance.W){ stop=1;}	
-		
-		if(!stop){
-			total_weight+=(instance.w[j]);
-			total_price+=(instance.p[j]);
-			copy_counter++;
+	 	unsigned int tmp=(total_weight+(instance.w[combination[j]]));
+		if((total_weight+(instance.w[combination[j]]))>instance.W){ 
+			tmp_combination[j]=-1;
+		}else{
+			total_weight+=(instance.w[combination[j]]);
+			total_price+=(instance.p[combination[j]]);
+			tmp_combination[j]=combination[j];
 		}
 	}
 	
-	
 	if(total_price>best_combination_price){
 		for(j=0;j<size;j++){
-			if(j<copy_counter) best_combination_set[j]=combination[j];
-			else best_combination_set[j]=-1;	
+			best_combination_set[j]=tmp_combination[j];
 		}
 		best_combination_price=total_price;
 		best_combination_weight=total_weight;
@@ -108,16 +108,14 @@ void test_combination(int combination[],int size){
 
 	//printf(" - SET \n");
 
-
 }
 
 int combinate(int itens,int dados[],int size,int dep){
 	if(dep==itens){
-		int j=0;
 		test_combination(dados,size);
 		return 0;
 	}
-	int i=NULL;
+	int i;
 	for (i=0;i<itens;i++){
 		
 		if(exist_in_domain(i,dados,size)) continue;
