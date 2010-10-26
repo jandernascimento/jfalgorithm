@@ -5,12 +5,12 @@
 
 void switch_position(instance_t* instance,int from, int to){
 	//switching p
-        unsigned int* holder_p=instance->p[to];	
+        unsigned int holder_p=instance->p[to];	
 	instance->p[to]=instance->p[from];
 	instance->p[from]=holder_p;
 
 	//switching w
-        unsigned int* holder_w=instance->w[to];	
+        unsigned int holder_w=instance->w[to];	
 	instance->w[to]=instance->w[from];
 	instance->w[from]=holder_w;
 }
@@ -26,7 +26,7 @@ instance_t add_instance (
 	newone.p = (unsigned int*) malloc ( (instance->n+1)*sizeof(unsigned int) ) ;
 	newone.n = instance->n+1;
 	newone.W = instance->W;
-	int j=NULL;
+	int j;
 	for ( j=0; j<instance->n ; ++j ) {
 		newone.p[j]=instance->p[j];
 		newone.w[j]=instance->w[j];
