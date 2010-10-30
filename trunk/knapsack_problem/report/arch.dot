@@ -1,0 +1,7 @@
+#This graph is dot language - generated with graphviz
+digraph G {
+
+"brute_force.c" -> "baselib.c"
+"greedy.c" -> "baselib.c"
+
+}
