@@ -1,4 +1,8 @@
 #!/bin/bash
+#Author: Jander Nascimento
+#License: LGPL
+#Date: 25 Oct 2010
+#Note: test all instances in trial directory
 
 echo "#instance;greedy;brute_force" >> algorithm_acurracy.dat
 
