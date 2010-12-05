@@ -3,6 +3,8 @@
 #include "timer.h" 
 #include "baselib.h"
 
+
+
 void switch_position(instance_t* instance,int from, int to){
 	//switching p
         unsigned int holder_p=instance->p[to];	
@@ -88,6 +90,38 @@ void free_instance ( instance_t* instance ) {
 	free ( instance->p ) ;
 	free ( instance->w ) ;
 }
+
+/*
+void init_matrix(int n, int W){
+
+   knap=malloc(sizeof(int *)*n);
+
+   int i=0;
+   for(i=0;i<n;i++){
+     knap[i]=malloc(sizeof(int)*W);
+   }
+   
+   for(i=0;i<n;i++){
+     int j=0;
+     for(j=0;j<W;j++){
+       knap[i][j]=0;
+     }
+   }
+   
+
+}
+
+void free_matrix(int n, int W){
+
+   int i=0;
+   for(i=0;i<n;i++){
+     free(knap[i]);
+   }
+
+   free(knap);
+
+}
+*/
 
 /*
 int main ( int argc, char** argv ) {
