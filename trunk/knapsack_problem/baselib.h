@@ -25,4 +25,8 @@ void print_instance ( instance_t* instance );
 
 void free_instance ( instance_t* instance );
 
+/*
+void init_matrix(int n, int W);
 
+void free_matrix(int n, int W);
+*/
