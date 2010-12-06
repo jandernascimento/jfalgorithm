@@ -7,6 +7,7 @@
 instance_t instance;
 
 int **knap;
+int **take;
 
 int max(int num1,int num2){
 
@@ -29,9 +30,12 @@ int secdp(instance_t instance){
       if(y<instance.w[k-1]){
         knap[k][y]=knap[k-1][y];
       }else if (y>=instance.w[k-1]){
-
 	knap[k][y]=max(knap[k-1][y],instance.p[k-1]+knap[k-1][y-instance.w[k-1]]);
-
+	if((knap[k-1][y])<(instance.p[k-1]+knap[k-1][y-instance.w[k-1]])){
+		take[k][y]=1;
+	}else {
+		take[k][y]=0;
+	}
       }
     }
 
@@ -41,20 +45,42 @@ int secdp(instance_t instance){
 
 }
 
+void showSelectedItens(int n, int w, instance_t instance){
+
+	int k=w-1;
+	int last_x=n;
+	do{
+		int x; 
+		for(x=last_x-1;x>=0;x--){
+			last_x=x;
+			if(take[x][k]==1){
+				printf("Item %i has profit %i and weigth %i\n",x,instance.p[x-1],instance.w[x-1]);
+				k=k-instance.w[x-1];
+				break;
+			}
+		}
+
+	}while(k>0);
+
+
+}
 
 void init_matrix(int n, int W){
 
    knap=malloc(sizeof(int *)*n);
+   take=malloc(sizeof(int *)*n);
 
    int i=0;
    for(i=0;i<n;i++){
      knap[i]=malloc(sizeof(int)*W);
+     take[i]=malloc(sizeof(int)*W);
    }
    
    for(i=0;i<n;i++){
      int j=0;
      for(j=0;j<W;j++){
        knap[i][j]=0;
+       take[i][j]=0;
      }
    }
    
@@ -92,12 +118,13 @@ BEGIN_EXPERIMENT
    init_matrix(instance.n+1,instance.W+1);
 
    int price=secdp(instance);
-
+   showSelectedItens(instance.n+1,instance.W+1,instance);
    printf("BAG AGGREGATE VALUE; weight:%i price:%i\n",-1,price);
 
-   free_matrix(instance.n+1,instance.W+1);
 
 END_EXPERIMENT
+
+   free_matrix(instance.n+1,instance.W+1);
 
 END_MAIN
    return 0;

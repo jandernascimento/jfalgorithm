@@ -55,7 +55,7 @@ The formulation of the problem is the following:
 
 \section{Sequencial algorithm}          
 
-In the sequencial algorithm(SeqDP) calculated the entire matrix of prices to choose which one is the best, this 
+In the sequencial algorithm(SeqDP) the entire matrix (matrix of itens \textit{versus} weight) is computed, this 
 better than any other alternative avoids re-computing the values of the knapsack.
 
 \begin{lstlisting}
@@ -86,14 +86,25 @@ seqDP(int w[],int p[],int W,int n){
 \end{lstlisting}
 
 
-\section{Is Recovering the reason for optimal solution?}          
+\section{How recover the optimal solution?}          
+
+To recover the solution, we can use an additional matrix. This matrix contains only zeros and ones, zero for those itens which we are not
+putting into the knapsack and one for those which we will put in the knapsack. The value one is setup for those itens in which the current 
+item value plus the value of the item from the remaining weight is bigger than the value computed before(previous line in the same column), 
+for those itens we setup to one, all others we setup to zero.
+
+We should run through the matrix from bottom up and right left, in this order. Every time we find a one in the column we take the current 
+item and change to the column which represents the current column index minus the current line weight, and so on.
+
+The only way to have the information without storage consumption is to print out the item as soon as you get it, instead of put a signal in a matrix.
 
 \section{SeqDP and RecDP \textit{versus} Brute-force and Greedy}
 
 \subsection{Time analysis}
 
 \begin{figure} [H]
-\includegraphics[scale=0.4]{report/time_analysis}
+\centering
+\includegraphics[scale=0.5]{report/time_analysis}
 \caption{Algorithms comparison: timing}
 \label{report/time_analysis}
 \end{figure}
@@ -103,7 +114,8 @@ Accoding to the chart we can see that the algorithms Greedy, secDP and recDP, ar
 We can see in a clear way the diffence between the three best algorithms by removing the Brute-Force, as shown: 
 
 \begin{figure} [H]
-\includegraphics[scale=0.4]{report/time_analysis_no_bf}
+\centering
+\includegraphics[scale=0.5]{report/time_analysis_no_bf}
 \caption{Algorithms comparison,timing: Greedy, RecDP and SeqDP}
 \label{report/time_analysis_no_bf}
 \end{figure}
@@ -117,7 +129,8 @@ As the time is not the only contraint to be evaluated in the algorithm, the pric
 to be analyzed. Since this variable denotates how efficience the algorithm was, in terms of price.
 
 \begin{figure} [H]
-\includegraphics[scale=0.4]{report/price_analysis}
+\centering
+\includegraphics[scale=0.5]{report/price_analysis}
 \caption{Algorithms comparison: price}
 \label{report/price_analysis}
 \end{figure}
