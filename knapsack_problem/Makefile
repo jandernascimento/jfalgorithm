@@ -5,7 +5,7 @@
 CC=gcc
 CFLAGS=
 
-all: generator read_instance greedy brute_force dynamic_recursive seqdp recdp
+all: generator read_instance greedy brute_force seqdp recdp
 
 generator: generator.c 
 	$(CC) -o $@ $<
@@ -19,8 +19,8 @@ greedy: greedy.c baselib.o
 brute_force: brute_force.c baselib.o
 	$(CC) $(CFLAGS) -o $@ $< baselib.o -lrt 
 
-dynamic_recursive: dynamic_recursive.c baselib.o
-	$(CC) $(CFLAGS) -o $@ $< baselib.o -lrt 
+#dynamic_recursive: dynamic_recursive.c baselib.o
+#	$(CC) $(CFLAGS) -o $@ $< baselib.o -lrt 
 
 seqdp: seqdp.c baselib.o
 	$(CC) $(CFLAGS) -o $@ $< baselib.o -lrt 
