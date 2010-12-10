@@ -10,7 +10,7 @@
 
 \title{Knapsack problem - Dynamic programming}
 
-\author{Jander Nascimento}
+\author{Jander Nascimento (MOSiG Student)}
 
 \maketitle
 
@@ -38,9 +38,18 @@ recDP(int[] w,int[] p, int i, int j){
 }
 \end{lstlisting}
 
-The running cost of the algorithm is proportional to the number of itens. Mathematically, let's consider
-the function T(n) the function that express the running time. Using T(n), we may define as 
-T(n)=nW the running time and 0(nW) the space usage.
+The running cost of the algorithm is proportional to the number of itens and the maximum weight. 
+Since \textit{n} is the number of itens and \textit{W} is the maximum weight.
+
+The running time cost is:
+\[
+T(n)=n*W
+\]
+
+As in recursive approach, only the cells required by the algorithm are filled, in the worst case we get:
+\[
+O(n)=n*W
+\]
 
 The formulation of the problem is the following:
 
@@ -85,18 +94,27 @@ seqDP(int w[],int p[],int W,int n){
 }
 \end{lstlisting}
 
+The running time is:
+\[
+T(n)=n*W
+\]
+
+As in sequencial approach the algorithm fill the entire matrix, the space usage is:
+\[
+\theta(n)=n*W
+\]
 
 \section{How recover the optimal solution?}          
 
-To recover the solution, we can use an additional matrix. This matrix contains only zeros and ones, zero for those itens which we are not
+To recover the solution, we can use an additional matrix. This matrix contains only zeros and ones, zero for those itens which we are \textbf{not}
 putting into the knapsack and one for those which we will put in the knapsack. The value one is setup for those itens in which the current 
 item value plus the value of the item from the remaining weight is bigger than the value computed before(previous line in the same column), 
 for those itens we setup to one, all others we setup to zero.
 
-We should run through the matrix from bottom up and right left, in this order. Every time we find a one in the column we take the current 
+We should run through the matrix from bottom up and right left, in this exactly sequency. Every time we find a one in the column we take the current 
 item and change to the column which represents the current column index minus the current line weight, and so on.
 
-The only way to have the information without storage consumption is to print out the item as soon as you get it, instead of put a signal in a matrix.
+The only way to have the information without storage consumption is to print out the item as soon as you get it, instead of put a flag in a matrix.
 
 \section{SeqDP and RecDP \textit{versus} Brute-force and Greedy}
 
@@ -136,7 +154,7 @@ to be analyzed. Since this variable denotates how efficience the algorithm was, 
 \end{figure}
 
 As we can see in the chart above, the greedy algorithm with more than 3 itens provides a solution in which the value of the 
-knapsack is not optimal if compared to Brute-Force, RecDP and SeqDP.
+knapsack is \textbf{not} optimal if compared to Brute-Force, RecDP and SeqDP.
 
 \subsection{What can i do within 30 sec}
 
@@ -154,7 +172,7 @@ less subproblems than the sequencial approach.
 Based on the fact that the recursive algorithm do not compute the entire table, we can predict the family in which the recursive is better
 than the sequencial algorithm. 
 
-The family of instances are those instances where we have bigger weights for the knapsack, this happens
+The family of instances where we have bigger weights for the knapsack, this happens
 because the sequencial algorithm must to compute the entire matrix (itens \textit{versus} weight) to find the result, while the recursive one
 do not.
 
